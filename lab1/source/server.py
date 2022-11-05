@@ -2,6 +2,8 @@
 import http.server
 import socketserver
 import os
+from datetime import datetime
+from time import gmtime, strftime
 
 #print('source code for "http.server":', http.server.__file__)
 
@@ -17,6 +19,8 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()            
             self.wfile.write(b"Hello World!\n")
+            self.wfile.write(str.encode(datetime.now().strftime("%H:%M:%S")))
+
         else:
             super().do_GET()
     
