@@ -3,7 +3,6 @@ import http.server
 import socketserver
 import os
 from datetime import datetime
-from time import gmtime, strftime
 
 #print('source code for "http.server":', http.server.__file__)
 
