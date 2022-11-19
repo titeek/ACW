@@ -11,20 +11,21 @@ class web_server(http.server.SimpleHTTPRequestHandler):
     
     def do_GET(self):
  
-        query_params = parse_qs(urlparse(self.path).query) 
+        path = urlparse(self.path)
+        query_params = parse_qs(path.query) 
         
-        # if self.path == '/':
-        self.protocol_version = 'HTTP/1.1'
-        self.send_response(200)
-        self.send_header("Content-type", "text/html; charset=UTF-8")
-        self.end_headers()
-        if not query_params:            
-            self.wfile.write(b"Hello World!\n")
-        elif(query_params['cmd'] == ['time']):
-            self.wfile.write(str.encode(datetime.now().strftime("%H:%M:%S")))
+        if path.path == '/':
+            self.protocol_version = 'HTTP/1.1'
+            self.send_response(200)
+            self.send_header("Content-type", "text/html; charset=UTF-8")
+            self.end_headers()
+            if not query_params:            
+                self.wfile.write(b"Hello World!\n")
+            elif(query_params['cmd'] == ['time']):
+                self.wfile.write(str.encode(datetime.now().strftime("%H:%M:%S")))
 
-        # else:
-        #     super().do_GET()
+        else:
+            super().do_GET()
     
 # --- main ---
 
