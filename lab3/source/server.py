@@ -13,7 +13,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
  
         path = urlparse(self.path)
         query_params = parse_qs(path.query) 
-        document = query_params.get('str', None)[0]
+        document = query_params.get('str', None)
         
         if path.path == '/':
             self.protocol_version = 'HTTP/1.1'
@@ -22,9 +22,16 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
 
             if document:
+                word = document[0]
                 result =  { "lowercase" : 0, "uppercase" : 0, "digits" : 0, "special" : 0}
-                # for char in document:
-                    # self.wfile.write(str.encode(char))
+
+                for char in word:
+                    if char.islower():
+                        result["lowercase"] += 1
+                    elif char.isupper():
+                        result["uppercase"] += 1
+                    elif char.isdigit():
+                        result["digits"] += 1
             
             self.wfile.write(str.encode(json.dumps(result)))
 
