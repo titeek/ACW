@@ -2,10 +2,7 @@
 import http.server
 import socketserver
 import json
-from datetime import datetime
 from urllib.parse import urlparse, parse_qs
-
-#print('source code for "http.server":', http.server.__file__)
 
 class web_server(http.server.SimpleHTTPRequestHandler):
     
@@ -32,7 +29,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
                         result["uppercase"] += 1
                     elif char.isdigit():
                         result["digits"] += 1
-                    else: 
+                    else:
                         result["special"] += 1
             
                 self.wfile.write(str.encode(json.dumps(result)))
