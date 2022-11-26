@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import http.server
 import socketserver
-import os
+import json
 from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 
@@ -22,9 +22,12 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
 
             if document:
-                for char in document:
-                    self.wfile.write(str.encode(char))
-                    
+                result =  { "lowercase" : 0, "uppercase" : 0, "digits" : 0, "special" : 0}
+                # for char in document:
+                    # self.wfile.write(str.encode(char))
+            
+            self.wfile.write(str.encode(json.dumps(result)))
+
         else:
             super().do_GET()
     
