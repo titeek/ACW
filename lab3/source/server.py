@@ -32,6 +32,8 @@ class web_server(http.server.SimpleHTTPRequestHandler):
                         result["uppercase"] += 1
                     elif char.isdigit():
                         result["digits"] += 1
+                    else: 
+                        result["special"] += 1
             
             self.wfile.write(str.encode(json.dumps(result)))
 
