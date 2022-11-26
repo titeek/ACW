@@ -35,7 +35,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
                     else: 
                         result["special"] += 1
             
-            self.wfile.write(str.encode(json.dumps(result)))
+                self.wfile.write(str.encode(json.dumps(result)))
 
         else:
             super().do_GET()
